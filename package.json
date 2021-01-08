@@ -9,7 +9,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "node ./index.js",
-    "dev": "nodemon ./index.js",
+    "dev": "PORT=8000 nodemon ./index.js",
     "format": "eslint --fix '**/*.js'"
   },
   "dependencies": {
@@ -20,7 +20,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "http": "0.0.0",
-    "mongoose": "^5.11.9"
+    "mongoose": "^5.11.9",
+    "stripe": "^8.129.0"
   },
   "devDependencies": {
     "eslint": "^7.17.0",

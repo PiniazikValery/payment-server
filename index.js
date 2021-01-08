@@ -5,15 +5,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
 const process = require('process');
-
-/**
- * Project dependencies.
- */
-const ProductsPhotos = require('./src/models/productsPhotos');
-const productsPhotosRoutes = require('./src/routes/productsPhotos');
-const productRoutes = require('./src/routes/products');
-const {fillInWithDefaultPhotos, fillInWithDefaultProducts} =
- require('./src/scripts/db');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 /**
  * Configure env
@@ -23,11 +16,25 @@ if (process.env.NODE_ENV === undefined) {
 }
 
 /**
+ * Project dependencies.
+ */
+const ProductsPhotos = require('./src/models/productsPhotos');
+const productsPhotosRoutes = require('./src/routes/productsPhotos');
+const productRoutes = require('./src/routes/products');
+const stripeRoutes = require('./src/routes/stripe');
+const {fillInWithDefaultPhotos, fillInWithDefaultProducts} =
+ require('./src/scripts/db');
+
+/**
  * Create Express server && Routes configuration.
  */
 const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use('/products-photos', productsPhotosRoutes);
 app.use('/product', productRoutes);
+app.use('/stripe', stripeRoutes);
 
 /**
  * Connect Mongoose to MongoDB.
